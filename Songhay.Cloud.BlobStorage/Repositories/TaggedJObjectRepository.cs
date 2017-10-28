@@ -72,7 +72,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
 
             var jO = JObject.Parse("{\"set\":[]}");
             var list = new List<TaggedJObject>();
-            var items = await this._container.ListBlobsAsync();
+            var items = await this._container.ListBlobsAsync(useFlatBlobListing: true);
             items.ForEachInEnumerable(async i =>
             {
                 if (!filter(i.Uri)) return;

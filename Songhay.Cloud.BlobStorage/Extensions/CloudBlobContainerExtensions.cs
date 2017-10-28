@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Blob;
+﻿using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 using Songhay.Diagnostics;
 using Songhay.Extensions;
 using System;
@@ -92,16 +93,29 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="container">the container</param>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container)
         {
-            return await container.ListBlobsAsync(pageLimit: 5);
+            return await container.ListBlobsAsync(useFlatBlobListing: false, pageLimit: 5);
         }
 
         /// <summary>
         /// Lists 5,000 items by default
-        /// in the <see cref="CloudBlobContainer"/>.
+        /// in the <see cref="CloudBlobContainer" />.
         /// </summary>
         /// <param name="container">the container</param>
+        /// <param name="useFlatBlobListing">if set to <c>true</c> [use flat BLOB listing].</param>
+        public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing)
+        {
+            return await container.ListBlobsAsync(useFlatBlobListing: false, pageLimit: 5);
+        }
+
+        /// <summary>
+        /// Lists 5,000 items by default
+        /// in the <see cref="CloudBlobContainer" />.
+        /// </summary>
+        /// <param name="container">the container</param>
+        /// <param name="useFlatBlobListing">if set to <c>true</c> [use flat BLOB listing].</param>
         /// <param name="pageLimit">limits items to a multiple of 5000</param>
-        public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, int pageLimit)
+        /// <returns></returns>
+        public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing, int pageLimit)
         {
             if (container == null) return Enumerable.Empty<IListBlobItem>();
 
@@ -110,9 +124,23 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             if (pageLimit < 1) pageLimit = 1;
             var results = new List<IListBlobItem>();
 
+            var prefix = default(string);
+            var blobListingDetails = BlobListingDetails.All;
+            var maxResults = default(int?);
+            var options = default(BlobRequestOptions);
+            var operationContext = default(OperationContext);
+
             do
             {
-                var response = await container.ListBlobsSegmentedAsync(continuationToken);
+                var response = await container.ListBlobsSegmentedAsync(
+                    prefix: prefix,
+                    useFlatBlobListing: useFlatBlobListing,
+                    blobListingDetails: blobListingDetails,
+                    maxResults: maxResults,
+                    currentToken: continuationToken,
+                    options: options,
+                    operationContext: operationContext);
+
                 continuationToken = response.ContinuationToken;
                 results.AddRange(response.Results);
                 ++pageNumber;
