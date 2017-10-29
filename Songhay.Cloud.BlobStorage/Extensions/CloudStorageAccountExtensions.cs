@@ -65,7 +65,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <returns>
         ///   <c>true</c> if BLOB in container at the specified BLOB location; otherwise, <c>false</c>.
         /// </returns>
-        public static async Task<bool> IsBlobInContainer(this CloudStorageAccount cloudStorageAccount, string blobName, string blobContainerName)
+        public static async Task<bool> IsBlobInContainerAsync(this CloudStorageAccount cloudStorageAccount, string blobName, string blobContainerName)
         {
             var container = cloudStorageAccount.GetContainerReference(blobContainerName);
             if (container == null) return false;

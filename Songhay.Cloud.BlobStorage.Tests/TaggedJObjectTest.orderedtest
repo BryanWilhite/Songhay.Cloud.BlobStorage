@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="orderedtest1" storage="c:\users\wilhiteb\source\workspaces\songhaysystem\songhay.cloud.blobstorage.tests\orderedtest1.orderedtest" id="7f57754b-723a-45fe-b499-624a1bc819b4" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="a017e847-b1e5-3e1b-b177-0810c6608d16" name="ShouldSaveTaggedJObjectToRepo" storage="bin\debug\songhay.cloud.blobstorage.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="88514064-10fc-c9b5-c6a9-9021bf62d562" name="ShouldLoadTaggedJObjectFromRepo" storage="bin\debug\songhay.cloud.blobstorage.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="825acf52-8c63-d194-5072-c048cd0d532c" name="ShouldDeleteTaggedJObjectInRepo" storage="bin\debug\songhay.cloud.blobstorage.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

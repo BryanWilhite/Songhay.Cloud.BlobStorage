@@ -11,6 +11,11 @@
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
     <PackageReference Include="SonghayCore.MSTest" Version="2.0.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Songhay.Cloud.BlobStorage\Songhay.Cloud.BlobStorage.csproj" />
   </ItemGroup>
 
 </Project>
