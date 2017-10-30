@@ -104,7 +104,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="useFlatBlobListing">if set to <c>true</c> [use flat BLOB listing].</param>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing)
         {
-            return await container.ListBlobsAsync(useFlatBlobListing: false, pageLimit: 5);
+            return await container.ListBlobsAsync(useFlatBlobListing, pageLimit: 5);
         }
 
         /// <summary>

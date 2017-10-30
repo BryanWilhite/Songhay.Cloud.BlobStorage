@@ -70,7 +70,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestMethod]
         [TestProperty("blobContainerName", "player-audio")]
         [TestProperty("blobContainerPath", "john_marciano0/jpg/background.jpg")]
-        [TestProperty("localStorageRoot", @"local-storage\")]
         public async Task ShouldHaveBlobInContainer()
         {
             var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
@@ -79,9 +78,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
             var blobContainerPath = this.TestContext.Properties["blobContainerPath"].ToString();
-            var localStorageRoot = this.TestContext.Properties["localStorageRoot"].ToString();
-            localStorageRoot = Path.Combine(projectRoot, localStorageRoot);
-            this.TestContext.ShouldFindFolder(localStorageRoot);
 
             #endregion
 
@@ -106,9 +102,9 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
         [TestCategory("Integration")]
         [TestMethod]
-        [TestProperty("localFile", @"local-storage\99piorg.jpg")]
         [TestProperty("blobContainerName", "shared-social-twitter")]
         [TestProperty("blobContainerPath", "")]
+        [TestProperty("localFile", @"local-storage\11dy.jpg")]
         public async Task ShouldUploadBlob()
         {
             var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
@@ -116,7 +112,10 @@ namespace Songhay.Cloud.BlobStorage.Tests
             #region test properties:
 
             var localFile = this.TestContext.Properties["localFile"].ToString();
-            localFile = Path.Combine(projectRoot, localFile);
+
+            localFile = Path.Combine(projectRoot,
+                this.GetType().Namespace.Replace(".Tests", string.Empty),
+                this.GetType().Namespace, localFile);
             this.TestContext.ShouldFindFile(localFile);
 
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
