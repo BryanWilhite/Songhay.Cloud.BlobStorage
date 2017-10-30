@@ -97,7 +97,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
             var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.GetContainerReference(blobContainerName);
             var blobs = await container.ListBlobsAsync(useFlatBlobListing: true);
-            blobs.ForEachInEnumerable(i => this.TestContext.WriteLine(Path.GetFileNameWithoutExtension(i.Uri.OriginalString)));
+            blobs.ForEachInEnumerable(i => this.TestContext.WriteLine(i.Uri.OriginalString));
         }
 
         [TestCategory("Integration")]

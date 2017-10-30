@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Songhay.Cloud.BlobStorage",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Songhay.Cloud.BlobStorage.Tests", "Songhay.Cloud.BlobStorage.Tests\Songhay.Cloud.BlobStorage.Tests.csproj", "{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE47F68E-5260-4B99-A118-B50A0F87BA5F}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
