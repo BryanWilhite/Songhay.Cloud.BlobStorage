@@ -65,7 +65,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         }
 
         /// <summary>
-        /// Converts the <see cref="ICloudBlob"/> to a <see cref="string"/> representation asynchronously.
+        /// Converts the <see cref="ICloudBlob"/> to a <see cref="string"/> representation.
         /// </summary>
         /// <param name="blob">The BLOB.</param>
         /// <returns></returns>

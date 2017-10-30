@@ -13,7 +13,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
     public static class AzureBlobContentExtensions
     {
         /// <summary>
-        /// Converts <see cref="HttpResponseMessage"/> to <see cref="AzureBlobContent"/>.
+        /// Converts <see cref="AzureBlobContent"/> to <see cref="HttpResponseMessage"/>.
         /// </summary>
         /// <param name="content">The content.</param>
         /// <returns></returns>
