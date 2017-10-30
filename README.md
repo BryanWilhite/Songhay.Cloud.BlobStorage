@@ -6,6 +6,6 @@ The `AzureBlobContentRepository` [class](./Songhay.Cloud.BlobStorage/Repositorie
 
 The `AzureBlobRepository` [class](./Songhay.Cloud.BlobStorage/Repositories/AzureBlobRepository.cs) is a wrapper for BLOBs that are serialized JSON that hydrate into the expected `TEntity`.
 
-The `TaggedJObjectRepository` [class](./Songhay.Cloud.BlobStorage/Repositories/TaggedJObjectRepository.cs) is also a wrapper for BLOBs in a container but these objects hydrate into the general-purpose `JObject` [from Newtonsoft](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm). The “tagged” JObject is arbitrary JSON that has one property that serves as a primitive, primary key. See the [TaggedJObjectTest](./Songhay.Cloud.BlobStorage.Tests/TaggedJObjectTest.cs) as additional documentation.
+The `TaggedJObjectRepository` [class](./Songhay.Cloud.BlobStorage/Repositories/TaggedJObjectRepository.cs) is also a wrapper for BLOBs in a container but these objects hydrate into the general-purpose `JObject` [from Newtonsoft](https://www.newtonsoft.com/json/help/html/T_Newtonsoft_Json_Linq_JObject.htm). The “tagged” JObject is arbitrary JSON that has one property that serves as a primitive, primary key. See the `TaggedJObjectTest` [suite](./Songhay.Cloud.BlobStorage.Tests/TaggedJObjectTest.cs) as additional documentation.
 
 [@BryanWilhite](https://twitter.com/bryanwilhite)
