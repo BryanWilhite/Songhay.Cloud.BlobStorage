@@ -41,8 +41,8 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestCategory("Integration")]
         [TestMethod]
         [TestProperty("blobContainerName", "player-audio")]
-        [TestProperty("blobContainerPath", "hiphoppoetryjam/png/gina%20loring.png")]
-        [TestProperty("localStorageRoot", @"local-storage\")]
+        [TestProperty("blobContainerPath", "hiphoppoetryjam/png/gina loring.png")]
+        [TestProperty("localStorageRoot", "local-storage")]
         public async Task ShouldDownloadBlob()
         {
             var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
@@ -52,7 +52,10 @@ namespace Songhay.Cloud.BlobStorage.Tests
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
             var blobContainerPath = this.TestContext.Properties["blobContainerPath"].ToString();
             var localStorageRoot = this.TestContext.Properties["localStorageRoot"].ToString();
-            localStorageRoot = Path.Combine(projectRoot, localStorageRoot);
+
+            localStorageRoot = Path.Combine(projectRoot,
+                this.GetType().Namespace.Replace(".Tests", string.Empty),
+                this.GetType().Namespace, localStorageRoot);
             this.TestContext.ShouldFindFolder(localStorageRoot);
 
             #endregion

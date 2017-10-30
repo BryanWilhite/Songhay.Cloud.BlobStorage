@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Songhay.Cloud.BlobStorage\Songhay.Cloud.BlobStorage.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="local-storage\player-audio\hiphoppoetryjam\png\" />
+  </ItemGroup>
+
 </Project>
