@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Songhay.Cloud.BlobStorage</id>
+    <version>2.0.0</version>
+    <title>Songhay Cloud BLOB Storage</title>
+    <authors>bryan.wilhite@gmail.com</authors>
+    <owners>rasx@songhaysystem.com</owners>
+    <projectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</projectUrl>
+    <iconUrl>http://songhaysystem.com/Content/images/songhay_icon.png</iconUrl>
+    <licenseUrl>https://raw.github.com/BryanWilhite/Songhay.Cloud.BlobStorage/master/LICENSE.md</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
+    <releaseNotes>inaugural</releaseNotes>
+    <copyright>Copyright 2017 Bryan D. Wilhite</copyright>
+    <tags>Songhay Azure BLOB Storage JSON</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="SonghayCore" version="2.3.1" />
+        <dependency id="WindowsAzure.Storage" version="8.5.0" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.dll" target="lib\netstandard2.0" />
+    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.exe" exclude="**vshost**" target="lib\netstandard2.0" />
+    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.config" target="lib\netstandard2.0" />
+    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.json" target="lib\netstandard2.0" />
+    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.xml" target="lib\netstandard2.0" />
+
+    <file src="Songhay.Cloud.BlobStorage\**\*.cs" exclude="Songhay.Cloud.BlobStorage\**\obj\**" target="src" />
+  </files>
+</package>
