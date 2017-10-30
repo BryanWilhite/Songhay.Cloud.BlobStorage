@@ -1,6 +1,6 @@
 # Songhay.Cloud.BlobStorage
 
-`Songhay.Cloud.BlobStorage` is a commitment to `WindowsAzure.Storage` [[NuGet](https://www.nuget.org/packages/WindowsAzure.Storage/)], building upon it to define repositories that turn a container of JSON files into a repository (of the “[repository pattern](https://www.infragistics.com/community/blogs/dhananjay_kumar/archive/2016/03/07/how-to-implement-the-repository-pattern-in-asp-net-mvc-application.aspx)”).
+`Songhay.Cloud.BlobStorage` [[Nuget](https://www.nuget.org/packages/Songhay.Cloud.BlobStorage/2.0.0)] is a commitment to `WindowsAzure.Storage` [[NuGet](https://www.nuget.org/packages/WindowsAzure.Storage/)], building upon it to define repositories that turn a container of JSON files into a repository (of the “[repository pattern](https://www.infragistics.com/community/blogs/dhananjay_kumar/archive/2016/03/07/how-to-implement-the-repository-pattern-in-asp-net-mvc-application.aspx)”).
 
 The `AzureBlobContentRepository` [class](./Songhay.Cloud.BlobStorage/Repositories/AzureBlobContentRepository.cs) is a wrapper for [BLOBs](https://en.wikipedia.org/wiki/Binary_large_object), featuring `CloudBlob.DownloadToStreamAsync()` [[docs](https://docs.microsoft.com/en-us/dotnet/api/microsoft.windowsazure.storage.blob.cloudblob.downloadtostreamasync?view=azure-dotnet)].
 
