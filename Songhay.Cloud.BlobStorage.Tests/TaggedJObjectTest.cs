@@ -18,8 +18,10 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestInitialize]
         public void InitializeTest()
         {
+            var basePathInfo = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(basePathInfo.FullName)
                 .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
 
             this._configurationRoot = builder.Build();
