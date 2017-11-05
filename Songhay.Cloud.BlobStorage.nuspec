@@ -14,6 +14,9 @@
     <releaseNotes>inaugural</releaseNotes>
     <copyright>Copyright 2017 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB Storage JSON</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" />
+    </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
         <dependency id="SonghayCore" version="2.3.1" />
