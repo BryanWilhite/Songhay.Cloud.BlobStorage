@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>2.1.0</version>
+    <version>2.2.0</version>
     <title>Songhay Cloud BLOB Storage</title>
     <authors>bryan.wilhite@gmail.com</authors>
     <owners>rasx@songhaysystem.com</owners>
@@ -11,10 +11,11 @@
     <licenseUrl>https://raw.github.com/BryanWilhite/Songhay.Cloud.BlobStorage/master/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
-    <releaseNotes>net452 support added</releaseNotes>
+    <releaseNotes>added ConnectionStringSettingsCollectionExtensions for net452</releaseNotes>
     <copyright>Copyright 2017 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB Storage JSON</tags>
     <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Configuration" />
       <frameworkAssembly assemblyName="System.Web" />
     </frameworkAssemblies>
     <dependencies>
