@@ -15,6 +15,10 @@
     <copyright>Copyright 2017 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB Storage JSON</tags>
     <dependencies>
+      <group targetFramework=".NETFramework4.5.2">
+        <dependency id="SonghayCore" version="2.3.1" />
+        <dependency id="WindowsAzure.Storage" version="8.5.0" />
+      </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="SonghayCore" version="2.3.1" />
         <dependency id="WindowsAzure.Storage" version="8.5.0" />
@@ -22,12 +26,13 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.dll" target="lib\netstandard2.0" />
-    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.exe" exclude="**vshost**" target="lib\netstandard2.0" />
-    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.config" target="lib\netstandard2.0" />
-    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.json" target="lib\netstandard2.0" />
-    <file src="Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay*.xml" target="lib\netstandard2.0" />
+    <file src="Songhay.Cloud.BlobStorage-net452\bin\Release\Songhay.Cloud.BlobStorage*.dll" target="lib\net452" />
+    <file src="Songhay.Cloud.BlobStorage-net452\bin\Release\Songhay.Cloud.BlobStorage*.config" target="lib\net452" />
+    <file src="Songhay.Cloud.BlobStorage-net452\bin\Release\Songhay.Cloud.BlobStorage*.xml" target="lib\net452" />
 
-    <file src="Songhay.Cloud.BlobStorage\**\*.cs" exclude="Songhay.Cloud.BlobStorage\**\obj\**" target="src" />
+    <file src=".\Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay.Cloud.BlobStorage*.dll" target="lib\netstandard2.0" />
+    <file src=".\Songhay.Cloud.BlobStorage\bin\Release\netcoreapp2.0\Songhay.Cloud.BlobStorage*.xml" target="lib\netstandard2.0" />
+
+    <file src=".\Songhay.Cloud.BlobStorage\**\*.cs" exclude="Songhay.Cloud.BlobStorage\**\obj\**" target="src" />
   </files>
 </package>
