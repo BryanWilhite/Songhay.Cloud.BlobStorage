@@ -25,10 +25,10 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestInitialize]
         public void InitializeTest()
         {
-            var basePathInfo = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
+            var basePath = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
 
             var builder = new ConfigurationBuilder()
-                .SetBasePath(basePathInfo.FullName)
+                .SetBasePath(basePath)
                 .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
 
             this._configurationRoot = builder.Build();
@@ -47,7 +47,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestProperty("localStorageRoot", "local-storage")]
         public async Task ShouldDownloadBlob()
         {
-            var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
+            var projectRoot = this.TestContext.ShouldGetAssemblyDirectoryParent(this.GetType(), expectedLevels: 3);
 
             #region test properties:
 
@@ -74,7 +74,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestProperty("blobContainerPath", "john_marciano0/jpg/background.jpg")]
         public async Task ShouldHaveBlobInContainer()
         {
-            var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
+            var projectRoot = this.TestContext.ShouldGetAssemblyDirectoryParent(this.GetType(), expectedLevels: 3);
 
             #region test properties:
 
@@ -109,7 +109,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         [TestProperty("localFile", @"local-storage\11dy.jpg")]
         public async Task ShouldUploadBlob()
         {
-            var projectRoot = this.TestContext.ShouldGetProjectsFolder(this.GetType());
+            var projectRoot = this.TestContext.ShouldGetAssemblyDirectoryParent(this.GetType(), expectedLevels: 3);
 
             #region test properties:
 
