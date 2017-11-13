@@ -91,9 +91,12 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// in the <see cref="CloudBlobContainer"/>.
         /// </summary>
         /// <param name="container">the container</param>
+        /// <remarks>
+        /// The <c>useFlatBlobListing</c> parameter in the overloads defaults to <c>true</c>.
+        /// </remarks>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container)
         {
-            return await container.ListBlobsAsync(useFlatBlobListing: false, pageLimit: 5);
+            return await container.ListBlobsAsync(useFlatBlobListing: true, pageLimit: 5);
         }
 
         /// <summary>
@@ -101,7 +104,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// in the <see cref="CloudBlobContainer" />.
         /// </summary>
         /// <param name="container">the container</param>
-        /// <param name="useFlatBlobListing">if set to <c>true</c> [use flat BLOB listing].</param>
+        /// <param name="useFlatBlobListing">if set to <c>true</c> use flat BLOB listing.</param>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing)
         {
             return await container.ListBlobsAsync(useFlatBlobListing, pageLimit: 5);
@@ -112,7 +115,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// in the <see cref="CloudBlobContainer" />.
         /// </summary>
         /// <param name="container">the container</param>
-        /// <param name="useFlatBlobListing">if set to <c>true</c> [use flat BLOB listing].</param>
+        /// <param name="useFlatBlobListing">if set to <c>true</c> use flat BLOB listing.</param>
         /// <param name="pageLimit">limits items to a multiple of 5000</param>
         /// <returns></returns>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing, int pageLimit)

@@ -57,7 +57,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         {
             var list = new List<TEntity>();
             var directory = this._container.GetDirectoryReference(typeof(TEntity).Name);
-            var blobs = await directory.Container.ListBlobsAsync();
+            var blobs = await directory.Container.ListBlobsAsync(useFlatBlobListing: true);
 
             blobs.ForEachInEnumerable(async i =>
             {
