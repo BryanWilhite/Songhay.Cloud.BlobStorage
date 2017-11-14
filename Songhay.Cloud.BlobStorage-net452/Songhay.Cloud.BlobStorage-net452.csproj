@@ -78,9 +78,6 @@
     <Compile Include="..\Songhay.Cloud.BlobStorage\Extensions\CloudBlobContainerExtensions.cs">
       <Link>Extensions\CloudBlobContainerExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Songhay.Cloud.BlobStorage\Extensions\CloudBlobDirectoryExtensions.cs">
-      <Link>Extensions\CloudBlobDirectoryExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Songhay.Cloud.BlobStorage\Extensions\CloudBlobExtensions.cs">
       <Link>Extensions\CloudBlobExtensions.cs</Link>
     </Compile>
