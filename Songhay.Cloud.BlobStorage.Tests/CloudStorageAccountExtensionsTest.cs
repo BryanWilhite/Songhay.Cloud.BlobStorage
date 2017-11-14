@@ -14,9 +14,9 @@ namespace Songhay.Cloud.BlobStorage.Tests
     /// Tests for <see cref="AzureBlobStorageContext"/>
     /// </summary>
     [TestClass]
-    public class ExtensionsTest
+    public class CloudStorageAccountExtensionsTest
     {
-        static ExtensionsTest() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
+        static CloudStorageAccountExtensionsTest() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
         static readonly TraceSource traceSource;
 
         /// <summary>

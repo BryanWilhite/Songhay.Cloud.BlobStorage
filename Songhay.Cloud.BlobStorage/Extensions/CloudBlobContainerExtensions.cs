@@ -96,7 +96,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// </remarks>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container)
         {
-            return await container.ListBlobsAsync(useFlatBlobListing: true, pageLimit: 5);
+            return await container.ListBlobsAsync(useFlatBlobListing: true, pageLimit: 5, rootPath: string.Empty);
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="useFlatBlobListing">if set to <c>true</c> use flat BLOB listing.</param>
         public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing)
         {
-            return await container.ListBlobsAsync(useFlatBlobListing, pageLimit: 5);
+            return await container.ListBlobsAsync(useFlatBlobListing, pageLimit: 5, rootPath: string.Empty);
         }
 
         /// <summary>
@@ -117,8 +117,9 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="container">the container</param>
         /// <param name="useFlatBlobListing">if set to <c>true</c> use flat BLOB listing.</param>
         /// <param name="pageLimit">limits items to a multiple of 5000</param>
+        /// <param name="rootPath">The root path.</param>
         /// <returns></returns>
-        public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing, int pageLimit)
+        public static async Task<IEnumerable<IListBlobItem>> ListBlobsAsync(this CloudBlobContainer container, bool useFlatBlobListing, int pageLimit, string rootPath)
         {
             if (container == null) return Enumerable.Empty<IListBlobItem>();
 
@@ -127,7 +128,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             if (pageLimit < 1) pageLimit = 1;
             var results = new List<IListBlobItem>();
 
-            var prefix = default(string);
+            var prefix = rootPath;
             var blobListingDetails = BlobListingDetails.All;
             var maxResults = default(int?);
             var options = default(BlobRequestOptions);

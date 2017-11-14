@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Songhay.Cloud.BlobStorage.Repositories
@@ -73,7 +74,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
             var jO = JObject.Parse("{\"set\":[]}");
             var list = new List<TaggedJObject>();
             var items = await this._container.ListBlobsAsync(useFlatBlobListing: true);
-            items.ForEachInEnumerable(async i =>
+            var tasks = items.Select(async i =>
             {
                 if (!filter(i.Uri)) return;
                 var path = this._container.GetRelativePath(i.Uri);
@@ -84,6 +85,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
                 traceSource.TraceVerbose("Adding reference `{0}`...", reference.Name);
                 list.Add(o);
             });
+            await Task.WhenAll(tasks);
 
             jO["set"] = JArray.FromObject(list.ToArray());
 

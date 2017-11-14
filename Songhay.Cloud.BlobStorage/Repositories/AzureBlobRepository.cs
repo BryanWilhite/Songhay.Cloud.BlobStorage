@@ -6,6 +6,7 @@ using Songhay.Extensions;
 using Songhay.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Songhay.Cloud.BlobStorage.Repositories
@@ -57,9 +58,9 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         {
             var list = new List<TEntity>();
             var directory = this._container.GetDirectoryReference(typeof(TEntity).Name);
-            var blobs = await directory.ListBlobsAsync();
+            var blobs = await directory.Container.ListBlobsAsync(useFlatBlobListing: true, pageLimit: 1, rootPath: directory.Prefix);
 
-            blobs.ForEachInEnumerable(async i =>
+            var tasks = blobs.Select(async i =>
             {
                 var name = (string)i.GetPropertyValue("Name");
                 if (string.IsNullOrEmpty(name)) return;
@@ -69,6 +70,8 @@ namespace Songhay.Cloud.BlobStorage.Repositories
                 var entity = await this.GetEntityAsync<TEntity>(reference);
                 list.Add(entity);
             });
+
+            await Task.WhenAll(tasks);
 
             return list;
         }
