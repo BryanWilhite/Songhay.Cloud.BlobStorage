@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>2.2.4</version>
+    <version>2.3.0</version>
     <title>Songhay Cloud BLOB Storage</title>
     <authors>bryan.wilhite@gmail.com</authors>
     <owners>rasx@songhaysystem.com</owners>
@@ -11,7 +11,7 @@
     <licenseUrl>https://raw.github.com/BryanWilhite/Songhay.Cloud.BlobStorage/master/LICENSE.md</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
-    <releaseNotes>changed defaults around CloudBlobContainerExtensions.ListBlobsAsync overloads; addressed net452 versioning</releaseNotes>
+    <releaseNotes>re-factored for Core TraceSources changes</releaseNotes>
     <copyright>Copyright 2017 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB Storage JSON</tags>
     <frameworkAssemblies>
@@ -20,11 +20,11 @@
     </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
-        <dependency id="SonghayCore" version="2.3.1" />
+        <dependency id="SonghayCore" version="2.6.2" />
         <dependency id="WindowsAzure.Storage" version="8.5.0" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="SonghayCore" version="2.3.1" />
+        <dependency id="SonghayCore" version="2.6.2" />
         <dependency id="WindowsAzure.Storage" version="8.5.0" />
       </group>
     </dependencies>
