@@ -14,7 +14,12 @@ namespace Songhay.Cloud.BlobStorage.Extensions
     /// </summary>
     public static class CloudStorageAccountExtensions
     {
-        static CloudStorageAccountExtensions() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
+        static CloudStorageAccountExtensions() => traceSource = TraceSources
+            .Instance
+            .GetTraceSourceFromConfiguredName()
+            .WithAllSourceLevels()
+            .EnsureTraceSource();
+
         static readonly TraceSource traceSource;
 
         /// <summary>

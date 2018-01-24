@@ -16,7 +16,12 @@ namespace Songhay.Cloud.BlobStorage.Tests
     [TestClass]
     public class CloudBlobContainerExtensionsTest
     {
-        static CloudBlobContainerExtensionsTest() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
+        static CloudBlobContainerExtensionsTest() => traceSource = TraceSources
+            .Instance
+            .GetTraceSourceFromConfiguredName()
+            .WithAllSourceLevels()
+            .EnsureTraceSource();
+
         static readonly TraceSource traceSource;
 
         /// <summary>

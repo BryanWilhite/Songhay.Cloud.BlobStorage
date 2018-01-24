@@ -16,7 +16,12 @@ namespace Songhay.Cloud.BlobStorage.Tests
     [TestClass]
     public class CloudStorageAccountExtensionsTest
     {
-        static CloudStorageAccountExtensionsTest() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
+        static CloudStorageAccountExtensionsTest() => traceSource = TraceSources
+            .Instance
+            .GetTraceSourceFromConfiguredName()
+            .WithAllSourceLevels()
+            .EnsureTraceSource();
+
         static readonly TraceSource traceSource;
 
         /// <summary>
@@ -58,7 +63,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
             localStorageRoot = Path.Combine(projectRoot,
                 this.GetType().Namespace.Replace(".Tests", string.Empty),
                 this.GetType().Namespace, localStorageRoot);
-            this.TestContext.ShouldFindFolder(localStorageRoot);
+            this.TestContext.ShouldFindDirectory(localStorageRoot);
 
             #endregion
 

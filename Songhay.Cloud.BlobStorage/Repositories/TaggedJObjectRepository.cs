@@ -18,7 +18,12 @@ namespace Songhay.Cloud.BlobStorage.Repositories
     /// </summary>
     public class TaggedJObjectRepository : ITaggedJObjectRepositoryAsync
     {
-        static TaggedJObjectRepository() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithAllSourceLevels();
+        static TaggedJObjectRepository() => traceSource = TraceSources
+            .Instance
+            .GetTraceSourceFromConfiguredName()
+            .WithAllSourceLevels()
+            .EnsureTraceSource();
+
         static readonly TraceSource traceSource;
 
         /// <summary>
