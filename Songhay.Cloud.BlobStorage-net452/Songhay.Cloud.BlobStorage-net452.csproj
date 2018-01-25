@@ -48,11 +48,11 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Songhay, Version=2.0.0.40363, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SonghayCore.2.6.2\lib\net452\Songhay.dll</HintPath>
+    <Reference Include="Songhay, Version=2.0.0.29114, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SonghayCore.2.6.4\lib\net452\Songhay.dll</HintPath>
     </Reference>
-    <Reference Include="SonghayCore, Version=1.0.0.40366, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SonghayCore.2.6.2\lib\net452\SonghayCore.dll</HintPath>
+    <Reference Include="SonghayCore, Version=1.0.0.29115, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SonghayCore.2.6.4\lib\net452\SonghayCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
