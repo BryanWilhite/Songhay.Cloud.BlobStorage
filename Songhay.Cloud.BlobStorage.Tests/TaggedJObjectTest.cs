@@ -3,10 +3,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.WindowsAzure.Storage;
 using Songhay.Cloud.BlobStorage.Models;
 using Songhay.Cloud.BlobStorage.Repositories;
+using Songhay.Cloud.BlobStorage.Tests.Extensions;
 using Songhay.Extensions;
-using Songhay.Models;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Songhay.Cloud.BlobStorage.Tests
@@ -21,24 +20,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         public void InitializeTest()
         {
             var basePath = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
-
-            var meta = new ProgramMetadata();
-            builder.Build().Bind(nameof(ProgramMetadata), meta);
-            this.TestContext.WriteLine($"{meta}");
-
-            Assert.IsNotNull(meta.CloudStorageSet, "The expected cloud storage set is not here.");
-
-            var key = "SonghayCloudStorage";
-            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
-            Assert.IsTrue(test, $"The expected cloud storage set, {key}, is not here.");
-            Assert.IsTrue(set.Any(), $"The expected cloud storage set items for {key} are not here.");
-
-            var connectionString = set.First().Value;
-            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
+            cloudStorageAccount = this.TestContext.ShouldGetCloudStorageAccount(basePath);
         }
 
         /// <summary>
