@@ -12,8 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SonghayCore" Version="2.6.4" />
-    <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
+    <PackageReference Include="SonghayCore" Version="2.8.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
   </ItemGroup>
 
 </Project>
