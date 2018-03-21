@@ -4,7 +4,9 @@ using Microsoft.WindowsAzure.Storage;
 using Songhay.Cloud.BlobStorage.Models;
 using Songhay.Cloud.BlobStorage.Repositories;
 using Songhay.Extensions;
+using Songhay.Models;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Songhay.Cloud.BlobStorage.Tests
@@ -24,7 +26,19 @@ namespace Songhay.Cloud.BlobStorage.Tests
                 .SetBasePath(basePath)
                 .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
 
-            this._configurationRoot = builder.Build();
+            var meta = new ProgramMetadata();
+            builder.Build().Bind(nameof(ProgramMetadata), meta);
+            this.TestContext.WriteLine($"{meta}");
+
+            Assert.IsNotNull(meta.CloudStorageSet, "The expected cloud storage set is not here.");
+
+            var key = "SonghayCloudStorage";
+            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
+            Assert.IsTrue(test, $"The expected cloud storage set, {key}, is not here.");
+            Assert.IsTrue(set.Any(), $"The expected cloud storage set items for {key} are not here.");
+
+            var connectionString = set.First().Value;
+            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
         /// <summary>
@@ -46,8 +60,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
 
             var repo = new TaggedJObjectRepository(container, "id");
@@ -87,8 +99,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
 
             var repo = new TaggedJObjectRepository(container, "id");
@@ -109,8 +119,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
 
             var repo = new TaggedJObjectRepository(container, "id");
@@ -121,6 +129,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
             Assert.IsTrue(test, "The expected blob is not here.");
         }
 
-        IConfigurationRoot _configurationRoot;
+        static CloudStorageAccount cloudStorageAccount;
     }
 }
