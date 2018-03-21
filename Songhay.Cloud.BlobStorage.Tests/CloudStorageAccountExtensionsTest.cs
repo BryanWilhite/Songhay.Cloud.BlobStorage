@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.WindowsAzure.Storage;
 using Songhay.Cloud.BlobStorage.Extensions;
+using Songhay.Cloud.BlobStorage.Tests.Extensions;
 using Songhay.Diagnostics;
 using Songhay.Extensions;
 using System.Diagnostics;
@@ -31,12 +31,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         public void InitializeTest()
         {
             var basePath = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
-
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
-
-            this._configurationRoot = builder.Build();
+            cloudStorageAccount = this.TestContext.ShouldGetCloudStorageAccount(basePath);
         }
 
         /// <summary>
@@ -67,9 +62,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
-
             await cloudStorageAccount.DownloadBlobAsync(localStorageRoot, blobContainerName, blobContainerPath);
         }
 
@@ -88,8 +80,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var test = await cloudStorageAccount.IsBlobInContainerAsync(blobContainerPath, blobContainerName);
             Assert.IsTrue(test, "The expected blob name is not here.");
         }
@@ -100,8 +90,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
         public async Task ShouldListBlobsInContainer()
         {
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.GetContainerReference(blobContainerName);
             var blobs = await container.ListBlobsAsync(useFlatBlobListing: true);
             blobs.ForEachInEnumerable(i => this.TestContext.WriteLine(i.Uri.OriginalString));
@@ -130,8 +118,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             await cloudStorageAccount.UploadBlobAsync(localFile, blobContainerName, blobContainerPath);
 
             var fileInfo = new FileInfo(localFile);
@@ -140,6 +126,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
             Assert.IsTrue(test, string.Format("The expected Blob, “{0},” is not here.", fileInfo.Name));
         }
 
-        IConfigurationRoot _configurationRoot;
+        static CloudStorageAccount cloudStorageAccount;
     }
 }
