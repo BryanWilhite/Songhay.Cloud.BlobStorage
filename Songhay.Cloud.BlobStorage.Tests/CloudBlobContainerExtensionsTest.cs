@@ -6,6 +6,7 @@ using Songhay.Cloud.BlobStorage.Tests.Models;
 using Songhay.Cloud.BlobStorage.Tests.Repositories;
 using Songhay.Diagnostics;
 using Songhay.Extensions;
+using Songhay.Models;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,19 @@ namespace Songhay.Cloud.BlobStorage.Tests
                 .SetBasePath(basePath)
                 .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
 
-            this._configurationRoot = builder.Build();
+            var meta = new ProgramMetadata();
+            builder.Build().Bind(nameof(ProgramMetadata), meta);
+            this.TestContext.WriteLine($"{meta}");
+
+            Assert.IsNotNull(meta.CloudStorageSet, "The expected cloud storage set is not here.");
+
+            var key = "SonghayCloudStorage";
+            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
+            Assert.IsTrue(test, $"The expected cloud storage set, {key}, is not here.");
+            Assert.IsTrue(set.Any(), $"The expected cloud storage set items for {key} are not here.");
+
+            var connectionString = set.First().Value;
+            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
         [TestMethod]
@@ -45,8 +58,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
         {
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
 
-            var connectionString = this._configurationRoot["SonghayCloudStorage"];
-            var cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
             var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
             var keys = new AzureBlobKeys();
             keys.Add<BlogEntry>(i => i.Slug);
@@ -64,6 +75,6 @@ namespace Songhay.Cloud.BlobStorage.Tests
         ///</summary>
         public TestContext TestContext { get; set; }
 
-        IConfigurationRoot _configurationRoot;
+        static CloudStorageAccount cloudStorageAccount;
     }
 }
