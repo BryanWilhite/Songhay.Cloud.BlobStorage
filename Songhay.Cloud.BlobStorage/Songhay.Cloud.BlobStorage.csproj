@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-	<Authors>Bryan D. Wilhite</Authors>
+    <Authors>Bryan D. Wilhite</Authors>
     <Company>Songhay System</Company>
     <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
     <Copyright>(c) 2017 Bryan D. Wilhite</Copyright>
@@ -10,10 +9,14 @@
     <AssemblyVersion>2.0.0.*</AssemblyVersion>
     <Deterministic>False</Deterministic>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1705;CS7035</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;1705;CS7035</NoWarn>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="SonghayCore" Version="2.8.1" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.1.0" />
   </ItemGroup>
-
 </Project>
