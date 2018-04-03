@@ -2,8 +2,22 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "build",
+            "command": "dotnet",
+            "isBackground": true,
+            "type": "shell",
+            "args": [
+                "build",
+                "Songhay.Cloud.BlobStorage.sln"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
             "command": "nuget",
-            "taskName": "NuGet pack",
+            "label": "NuGet pack",
             "isBackground": false,
             "type": "shell",
             "args": [
