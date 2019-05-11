@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿#if NETSTANDARD
+
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using System;
 
@@ -28,3 +30,5 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         }
     }
 }
+
+#endif

@@ -7,7 +7,7 @@
     <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
     <Copyright>(c) 2017 Bryan D. Wilhite</Copyright>
     <RepositoryUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</RepositoryUrl>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 

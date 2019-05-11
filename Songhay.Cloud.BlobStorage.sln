@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Songhay.Cloud.BlobStorage.nuspec = Songhay.Cloud.BlobStorage.nuspec
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Songhay.Cloud.BlobStorage-net452", "Songhay.Cloud.BlobStorage-net452\Songhay.Cloud.BlobStorage-net452.csproj", "{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

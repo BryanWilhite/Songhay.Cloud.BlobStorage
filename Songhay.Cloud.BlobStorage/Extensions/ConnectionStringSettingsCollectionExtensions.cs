@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿#if NET452 || NET462
+
+using Microsoft.WindowsAzure.Storage;
 using System;
 using System.Configuration;
 
@@ -28,3 +30,5 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         }
     }
 }
+
+#endif

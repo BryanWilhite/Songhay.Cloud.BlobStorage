@@ -164,8 +164,8 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="container">The container.</param>
         /// <param name="localFile">The local file.</param>
         /// <param name="blobContainerPath">The BLOB container path.</param>
-        /// <exception cref="System.NullReferenceException">The expected cloud container is not here.</exception>
-        /// <exception cref="System.IO.FileNotFoundException"></exception>
+        /// <exception cref="NullReferenceException">The expected cloud container is not here.</exception>
+        /// <exception cref="FileNotFoundException"></exception>
         public static async Task UploadBlob(this CloudBlobContainer container, string localFile, string blobContainerPath)
         {
             if (container == null) throw new NullReferenceException("The expected cloud container is not here.");

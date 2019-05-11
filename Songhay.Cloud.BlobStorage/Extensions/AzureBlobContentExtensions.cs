@@ -1,4 +1,6 @@
-﻿using Songhay.Cloud.BlobStorage.Models;
+﻿#if NETSTANDARD
+
+using Songhay.Cloud.BlobStorage.Models;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -40,3 +42,5 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         }
     }
 }
+
+#endif
