@@ -19,11 +19,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
     /// </remarks>
     public static class CloudBlobExtensions
     {
-        static CloudBlobExtensions() => traceSource = TraceSources
-            .Instance
-            .GetTraceSourceFromConfiguredName()
-            .WithAllSourceLevels()
-            .EnsureTraceSource();
+        static CloudBlobExtensions() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithSourceLevels();
 
         static readonly TraceSource traceSource;
 
@@ -36,19 +32,19 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (blob == null)
             {
-                traceSource.TraceError("The expected cloud blob is not here.");
+                traceSource?.TraceError("The expected cloud blob is not here.");
                 return;
             }
 
             if (string.IsNullOrEmpty(localRoot))
             {
-                traceSource.TraceError("The expected local root path is not here.");
+                traceSource?.TraceError("The expected local root path is not here.");
                 return;
             }
 
             var localPath = Path.Combine(localRoot, blob.Name.Replace("/", @"\"));
 
-            traceSource.TraceVerbose(string.Format("Downloading {0} to {1}...", blob.Name, localPath));
+            traceSource?.TraceVerbose(string.Format("Downloading {0} to {1}...", blob.Name, localPath));
             await blob.DownloadToFileAsync(localPath, FileMode.OpenOrCreate);
         }
 
@@ -61,7 +57,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (blob == null)
             {
-                traceSource.TraceError("The expected cloud blob is not here.");
+                traceSource?.TraceError("The expected cloud blob is not here.");
                 return;
             }
 
@@ -78,7 +74,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (blob == null)
             {
-                traceSource.TraceError("The expected cloud blob is not here.");
+                traceSource?.TraceError("The expected cloud blob is not here.");
                 return null;
             }
 

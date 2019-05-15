@@ -14,11 +14,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
     /// </summary>
     public static class CloudStorageAccountExtensions
     {
-        static CloudStorageAccountExtensions() => traceSource = TraceSources
-            .Instance
-            .GetTraceSourceFromConfiguredName()
-            .WithAllSourceLevels()
-            .EnsureTraceSource();
+        static CloudStorageAccountExtensions() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithSourceLevels();
 
         static readonly TraceSource traceSource;
 
@@ -53,7 +49,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (cloudStorageAccount == null)
             {
-                traceSource.TraceError("The expected cloud storage account is not here.");
+                traceSource?.TraceError("The expected cloud storage account is not here.");
                 return null;
             }
 
@@ -77,7 +73,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var test = false;
 
-            traceSource.TraceVerbose(string.Format("Looking for {0} in {1}…", blobName, blobContainerName));
+            traceSource?.TraceVerbose($"Looking for {blobName} in {blobContainerName}…");
             try
             {
                 var blob = await container.GetBlobReferenceFromServerAsync(blobName);
@@ -86,7 +82,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             }
             catch(Exception ex)
             {
-                traceSource.TraceError(ex);
+                traceSource?.TraceError(ex);
             }
 
             return test;
@@ -105,6 +101,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             var container = cloudStorageAccount.GetContainerReference(blobContainerName);
             if (container == null) return;
 
+            traceSource?.TraceVerbose($"Uploading {localFile} to {blobContainerPath}…");
             await container.UploadBlob(localFile, blobContainerPath);
         }
     }

@@ -19,7 +19,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         static CloudStorageAccountExtensionsTest() => traceSource = TraceSources
             .Instance
             .GetTraceSourceFromConfiguredName()
-            .WithAllSourceLevels()
+            .WithSourceLevels()
             .EnsureTraceSource();
 
         static readonly TraceSource traceSource;

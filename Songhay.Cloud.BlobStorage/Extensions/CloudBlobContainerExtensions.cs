@@ -16,11 +16,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
     /// </summary>
     public static class CloudBlobContainerExtensions
     {
-        static CloudBlobContainerExtensions() => traceSource = TraceSources
-            .Instance
-            .GetTraceSourceFromConfiguredName()
-            .WithAllSourceLevels()
-            .EnsureTraceSource();
+        static CloudBlobContainerExtensions() => traceSource = TraceSources.Instance.GetConfiguredTraceSource().WithSourceLevels();
 
         static readonly TraceSource traceSource;
 
@@ -35,7 +31,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (container == null) return null;
             var wasGenerated = await container.CreateIfNotExistsAsync();
-            if (wasGenerated) traceSource.TraceVerbose(string.Format("Generated container {0}.", container.Name));
+            if (wasGenerated) traceSource?.TraceVerbose(string.Format("Generated container {0}.", container.Name));
             if (generationAction != null) generationAction.Invoke(container, wasGenerated);
             return container;
         }
@@ -69,7 +65,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var blobName = (string)item.GetPropertyValue("Name");
             if (string.IsNullOrEmpty(blobName)) return default(CloudBlob);
-            traceSource.TraceVerbose("Getting reference to blob `{0}`…", blobName);
+            traceSource?.TraceVerbose("Getting reference to blob `{0}`…", blobName);
             var blob = container.GetBlobReference(blobName);
             return blob;
         }
@@ -86,7 +82,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var blobName = (string)item.GetPropertyValue("Name");
             if (string.IsNullOrEmpty(blobName)) return default(CloudBlockBlob);
-            traceSource.TraceVerbose("Getting reference to block-blob `{0}`…", blobName);
+            traceSource?.TraceVerbose("Getting reference to block-blob `{0}`…", blobName);
             var blob = container.GetBlockBlobReference(blobName);
             return blob;
         }
@@ -174,15 +170,15 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             if (string.IsNullOrEmpty(blobContainerPath)) blobContainerPath = string.Empty;
 
             var fileInfo = new FileInfo(localFile);
-            if (await container.CreateIfNotExistsAsync()) traceSource.TraceVerbose(string.Format("Generated container {0}.", container.Name));
+            if (await container.CreateIfNotExistsAsync()) traceSource?.TraceVerbose(string.Format("Generated container {0}.", container.Name));
 
             var @ref = Path.Combine(blobContainerPath, fileInfo.Name)
                 .Replace("\\", "/")
                 .TrimStart('/');
-            traceSource.TraceVerbose("Getting block-blob reference {0}…", @ref);
+            traceSource?.TraceVerbose("Getting block-blob reference {0}…", @ref);
             var blob = container.GetBlockBlobReference(@ref);
             blob.Properties.ContentType = AzureStorageUtility.GetMimeType(fileInfo.Extension);
-            traceSource.TraceVerbose("Uploading {0}…", localFile);
+            traceSource?.TraceVerbose("Uploading {0}…", localFile);
             await blob.UploadFromFileAsync(localFile);
         }
     }
