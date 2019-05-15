@@ -44,7 +44,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var localPath = Path.Combine(localRoot, blob.Name.Replace("/", @"\"));
 
-            traceSource?.TraceVerbose(string.Format("Downloading {0} to {1}...", blob.Name, localPath));
+            traceSource?.TraceVerbose($"Downloading {blob.Name} to {localPath}...");
             await blob.DownloadToFileAsync(localPath, FileMode.OpenOrCreate);
         }
 

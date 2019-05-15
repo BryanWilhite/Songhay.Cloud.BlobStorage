@@ -112,45 +112,52 @@ namespace Songhay.Cloud.BlobStorage.Tests.Models
             var sb = new StringBuilder();
             if (string.IsNullOrEmpty(this.Title))
             {
-                sb.AppendFormat("Title: [!MISSING]");
+                sb.Append("Title: [!MISSING]");
             }
+            else
             {
-                sb.AppendFormat("Title: {0}", this.Title);
+                sb.Append($"Title: {this.Title}");
             }
+
             sb.AppendFormat("Is Published?: {0}", (this.IsPublished.GetValueOrDefault()) ? "yes" : this.IsPublished.HasValue ? "no" : "unknown");
-            sb.AppendFormat(", Sort Ordinal: {0}", this.SortOrdinal);
-            sb.AppendFormat(", Incept Date: {0}", this.InceptDate);
-            sb.AppendFormat(", Modification Date: {0}", this.ModificationDate);
+            sb.Append($", Sort Ordinal: {this.SortOrdinal}");
+            sb.Append($", Incept Date: {this.InceptDate}");
+            sb.Append($", Modification Date: {this.ModificationDate}");
+
+            void append(string label, string value)
+            {
+                sb.Append($"{label}: {value}");
+            }
 
             if (!string.IsNullOrEmpty(this.Author))
             {
                 sb.AppendLine();
-                sb.AppendFormat("Author: {0}", this.Author);
+                append(nameof(this.Author), this.Author);
             }
 
             if (!string.IsNullOrEmpty(this.Slug))
             {
                 sb.AppendLine();
-                sb.AppendFormat("Slug: {0}", this.Slug);
+                append(nameof(this.Slug), this.Slug);
             }
 
             if (!string.IsNullOrEmpty(this.ItemCategory))
             {
                 sb.AppendLine();
-                sb.AppendFormat("ItemCategory: {0}", this.ItemCategory);
+                append(nameof(this.ItemCategory), this.ItemCategory);
             }
 
             if (!string.IsNullOrEmpty(this.Tag))
             {
                 sb.AppendLine();
-                sb.AppendFormat("Tag: {0}", this.Tag);
+                append(nameof(this.Tag), this.Tag);
             }
 
             var limit = 255;
             if (!string.IsNullOrEmpty(this.Content))
             {
                 sb.AppendLine();
-                sb.AppendFormat("Content: {0}", (this.Content.Length > limit) ? string.Format("{0}...", this.Content.Substring(0, limit - 1)) : this.Content);
+                sb.AppendFormat("Content: {0}", (this.Content.Length > limit) ? $"{this.Content.Substring(0, limit - 1)}..." : this.Content);
             }
 
             sb.AppendLine();

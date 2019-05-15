@@ -31,7 +31,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (container == null) return null;
             var wasGenerated = await container.CreateIfNotExistsAsync();
-            if (wasGenerated) traceSource?.TraceVerbose(string.Format("Generated container {0}.", container.Name));
+            if (wasGenerated) traceSource?.TraceVerbose($"Generated container {container.Name}.");
             if (generationAction != null) generationAction.Invoke(container, wasGenerated);
             return container;
         }
@@ -65,7 +65,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var blobName = (string)item.GetPropertyValue("Name");
             if (string.IsNullOrEmpty(blobName)) return default(CloudBlob);
-            traceSource?.TraceVerbose("Getting reference to blob `{0}`…", blobName);
+            traceSource?.TraceVerbose($"Getting reference to blob `{blobName}`...");
             var blob = container.GetBlobReference(blobName);
             return blob;
         }
@@ -82,7 +82,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
 
             var blobName = (string)item.GetPropertyValue("Name");
             if (string.IsNullOrEmpty(blobName)) return default(CloudBlockBlob);
-            traceSource?.TraceVerbose("Getting reference to block-blob `{0}`…", blobName);
+            traceSource?.TraceVerbose($"Getting reference to block-blob `{blobName}`...");
             var blob = container.GetBlockBlobReference(blobName);
             return blob;
         }
@@ -166,19 +166,19 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         {
             if (container == null) throw new NullReferenceException("The expected cloud container is not here.");
 
-            if (!File.Exists(localFile)) throw new FileNotFoundException(string.Format("The expected local file, “{0},” is not here.", localFile));
+            if (!File.Exists(localFile)) throw new FileNotFoundException($"The expected local file, `{localFile}`, is not here.");
             if (string.IsNullOrEmpty(blobContainerPath)) blobContainerPath = string.Empty;
 
             var fileInfo = new FileInfo(localFile);
-            if (await container.CreateIfNotExistsAsync()) traceSource?.TraceVerbose(string.Format("Generated container {0}.", container.Name));
+            if (await container.CreateIfNotExistsAsync()) traceSource?.TraceVerbose($"Generated container {container.Name}.");
 
             var @ref = Path.Combine(blobContainerPath, fileInfo.Name)
                 .Replace("\\", "/")
                 .TrimStart('/');
-            traceSource?.TraceVerbose("Getting block-blob reference {0}…", @ref);
+            traceSource?.TraceVerbose($"Getting block-blob reference {@ref}...");
             var blob = container.GetBlockBlobReference(@ref);
             blob.Properties.ContentType = AzureStorageUtility.GetMimeType(fileInfo.Extension);
-            traceSource?.TraceVerbose("Uploading {0}…", localFile);
+            traceSource?.TraceVerbose($"Uploading {localFile}...");
             await blob.UploadFromFileAsync(localFile);
         }
     }

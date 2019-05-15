@@ -123,7 +123,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
             var fileInfo = new FileInfo(localFile);
             var test = await cloudStorageAccount.IsBlobInContainerAsync(fileInfo.Name, blobContainerName);
 
-            Assert.IsTrue(test, string.Format("The expected Blob, “{0},” is not here.", fileInfo.Name));
+            Assert.IsTrue(test, $"The expected Blob, `{fileInfo.Name}`, is not here.");
         }
 
         static CloudStorageAccount cloudStorageAccount;

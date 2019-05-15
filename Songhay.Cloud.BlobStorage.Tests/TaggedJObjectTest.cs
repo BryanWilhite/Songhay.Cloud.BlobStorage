@@ -63,7 +63,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
             var json = this.TestContext.Properties["json"].ToString();
 
             var data = new TaggedJObject(json, "id");
-            this.TestContext.WriteLine("tag: {0}", data.Tag);
+            this.TestContext.WriteLine($"tag: {data.Tag}");
             this.TestContext.WriteLine(data.ToString().EscapeInterpolation());
             Assert.IsNotNull(data.Tag, "The expected tag is not here.");
         }

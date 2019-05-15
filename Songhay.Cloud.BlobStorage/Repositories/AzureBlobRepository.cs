@@ -114,7 +114,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
             var blobExists = await blob.ExistsAsync();
             if (!blobExists)
             {
-                var message = string.Format("The item “{0}” could not be found. Container: {1} {2}", key, this._container.Name, this._container.Uri);
+                var message = $"The item `{key}` could not be found. Container: {this._container.Name} {this._container.Uri}";
                 throw new FileNotFoundException(message);
             }
         }
@@ -136,7 +136,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <returns></returns>
         protected string GetBlobPath<TEntity>(string key)
         {
-            return string.Format("{0}/{1}.json", typeof(TEntity).Name, key);
+            return $"{typeof(TEntity).Name}/{key}.json";
         }
 
         /// <summary>

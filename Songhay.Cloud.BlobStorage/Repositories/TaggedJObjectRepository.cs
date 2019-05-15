@@ -30,8 +30,8 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         public TaggedJObjectRepository(CloudBlobContainer container, string tagPropertyName = "Tag")
         {
             traceSource?.TraceVerbose("Constructing TaggedJObjectRepository...");
-            if (container != null) traceSource?.TraceVerbose("container.Name: {0}", container.Name);
-            traceSource?.TraceVerbose("tagPropertyName: {0}", tagPropertyName);
+            if (container != null) traceSource?.TraceVerbose($"container.Name: {container.Name}");
+            traceSource?.TraceVerbose($"tagPropertyName: {tagPropertyName}");
 
             this._container = container;
             this._tagPropertyName = tagPropertyName;
@@ -43,7 +43,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <param name="repositoryKey">The repository key.</param>
         public async Task DeleteAsync(string repositoryKey)
         {
-            traceSource?.TraceVerbose("Deleting {0}...", repositoryKey);
+            traceSource?.TraceVerbose($"Deleting {repositoryKey}...");
 
             var reference = this.GetBlockBlobReference(repositoryKey);
             await reference.DeleteAsync();
@@ -56,7 +56,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <returns></returns>
         public async Task<bool> HasBlobAsync(string repositoryKey)
         {
-            traceSource?.TraceVerbose("Verifying BLOB {0}...", repositoryKey);
+            traceSource?.TraceVerbose($"Verifying BLOB {repositoryKey}...");
 
             var reference = this.GetBlockBlobReference(repositoryKey);
             return await reference.ExistsAsync();
@@ -79,11 +79,11 @@ namespace Songhay.Cloud.BlobStorage.Repositories
             {
                 if (!filter(i.Uri)) return;
                 var path = this._container.GetRelativePath(i.Uri);
-                traceSource?.TraceVerbose("Getting Container reference to `{0}`...", path);
+                traceSource?.TraceVerbose($"Getting Container reference to `{path}`...");
                 var reference = this._container.GetBlockBlobReference(path);
                 await this.CheckReferenceAsync(reference, i.Uri);
                 var o = await this.GetTaggedJObjectAsync(reference);
-                traceSource?.TraceVerbose("Adding reference `{0}`...", reference.Name);
+                traceSource?.TraceVerbose($"Adding reference `{reference.Name}`...");
                 list.Add(o);
             });
             await Task.WhenAll(tasks);
@@ -100,7 +100,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <returns></returns>
         public async Task<TaggedJObject> LoadSingleAsync(string repositoryKey)
         {
-            traceSource?.TraceVerbose("Loading single reference `{0}`...", repositoryKey);
+            traceSource?.TraceVerbose($"Loading single reference `{repositoryKey}`...");
 
             var reference = this.GetBlockBlobReference(repositoryKey);
             var o = await this.GetTaggedJObjectAsync(reference);
@@ -115,7 +115,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         public async Task SaveAsync(TaggedJObject blob)
         {
             if (blob == null) throw new ArgumentNullException("blob", "The expected blob is not here.");
-            traceSource?.TraceVerbose("Saving `{0}`...", blob.Tag);
+            traceSource?.TraceVerbose($"Saving `{blob.Tag}`...");
 
             var reference = this.GetBlockBlobReference(blob.Tag);
             var json = blob.ToString();
@@ -130,13 +130,13 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <exception cref="System.IO.FileNotFoundException"></exception>
         protected async Task CheckReferenceAsync(CloudBlockBlob blob, object key)
         {
-            traceSource?.TraceVerbose("Checking BLOB reference for `{0}` [key: {1}]...", blob.Uri.OriginalString, key);
+            traceSource?.TraceVerbose($"Checking BLOB reference for `{blob.Uri.OriginalString}` [key: {key}]...");
 
             var blobExists = await blob.ExistsAsync();
 
             if (!blobExists)
             {
-                var message = string.Format("The item “{0}” could not be found. Container: {1} {2}", key, this._container.Name, this._container.Uri);
+                var message = $"The item `{key}` could not be found. Container: {this._container.Name} {this._container.Uri}";
                 throw new FileNotFoundException(message);
             }
         }
@@ -148,10 +148,10 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <returns></returns>
         protected CloudBlockBlob GetBlockBlobReference(string repositoryKey)
         {
-            traceSource?.TraceVerbose("Getting BLOB reference `{0}`...", repositoryKey);
+            traceSource?.TraceVerbose($"Getting BLOB reference `{repositoryKey}`...");
 
             if (string.IsNullOrEmpty(repositoryKey)) throw new ArgumentNullException("repositoryKey", "The expected repo key is not here,");
-            if (!repositoryKey.EndsWith(".json")) repositoryKey = string.Format("{0}.json", repositoryKey);
+            if (!repositoryKey.EndsWith(".json")) repositoryKey = $"{repositoryKey}.json";
             var reference = this._container.GetBlockBlobReference(repositoryKey);
             return reference;
         }
@@ -163,7 +163,7 @@ namespace Songhay.Cloud.BlobStorage.Repositories
         /// <returns></returns>
         protected async Task<TaggedJObject> GetTaggedJObjectAsync(CloudBlockBlob reference)
         {
-            traceSource?.TraceVerbose("Getting block BLOB reference `{0}`...", reference.Name);
+            traceSource?.TraceVerbose($"Getting block BLOB reference `{reference.Name}`...");
 
             var json = await reference.DownloadTextAsync();
             var o = new TaggedJObject(json, this._tagPropertyName);
