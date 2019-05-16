@@ -27,16 +27,16 @@ namespace Songhay.Cloud.BlobStorage.Extensions
         /// <param name="blobContainerPath">The BLOB container path.</param>
         public static async Task DownloadBlobAsync(this CloudStorageAccount cloudStorageAccount, string localRoot, string blobContainerName, string blobContainerPath)
         {
-            var container = await cloudStorageAccount
-                .GetContainerReference(blobContainerName)
-                .WithGenerationAsync();
-
+            var container = await cloudStorageAccount.GetContainerReference(blobContainerName).WithGenerationAsync();
             if (container == null) return;
 
             if (string.IsNullOrEmpty(blobContainerPath)) blobContainerPath = string.Empty;
 
+            traceSource?.TraceVerbose($"Getting BLOB reference: {blobContainerName}/{blobContainerPath}...");
             var blob = await container.GetBlobReferenceFromServerAsync(blobContainerPath);
-            await blob.DownloadBlobAsync(Path.Combine(localRoot, blobContainerName));
+
+            var localInfo = new DirectoryInfo(localRoot);
+            await blob.DownloadBlobAsync(localInfo.ToCombinedPath(blobContainerName));
         }
 
         /// <summary>
@@ -53,6 +53,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
                 return null;
             }
 
+            traceSource?.TraceVerbose($"Getting container {blobContainerName}...");
             var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
             return container;
         }

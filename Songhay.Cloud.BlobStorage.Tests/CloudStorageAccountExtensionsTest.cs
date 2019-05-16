@@ -4,6 +4,7 @@ using Songhay.Cloud.BlobStorage.Extensions;
 using Songhay.Cloud.BlobStorage.Tests.Extensions;
 using Songhay.Diagnostics;
 using Songhay.Extensions;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -16,11 +17,15 @@ namespace Songhay.Cloud.BlobStorage.Tests
     [TestClass]
     public class CloudStorageAccountExtensionsTest
     {
-        static CloudStorageAccountExtensionsTest() => traceSource = TraceSources
-            .Instance
-            .GetTraceSourceFromConfiguredName()
-            .WithSourceLevels()
-            .EnsureTraceSource();
+        static CloudStorageAccountExtensionsTest()
+        {
+            TraceSources.ConfiguredTraceSourceName = $"trace-{nameof(CloudStorageAccountExtensionsTest)}";
+            traceSource = TraceSources
+                .Instance
+                .GetTraceSourceFromConfiguredName()
+                .WithSourceLevels()
+                .EnsureTraceSource();
+        }
 
         static readonly TraceSource traceSource;
 
@@ -62,7 +67,18 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            await cloudStorageAccount.DownloadBlobAsync(localStorageRoot, blobContainerName, blobContainerPath);
+            using (var listener = new TextWriterTraceListener(Console.Out))
+            {
+                try
+                {
+                    traceSource.Listeners.Add(listener);
+                    await cloudStorageAccount.DownloadBlobAsync(localStorageRoot, blobContainerName, blobContainerPath);
+                }
+                finally
+                {
+                    listener?.Flush();
+                }
+            }
         }
 
         [TestCategory("Integration")]
@@ -80,8 +96,20 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            var test = await cloudStorageAccount.IsBlobInContainerAsync(blobContainerPath, blobContainerName);
-            Assert.IsTrue(test, "The expected blob name is not here.");
+            using (var listener = new TextWriterTraceListener(Console.Out))
+            {
+                try
+                {
+                    traceSource.Listeners.Add(listener);
+
+                    var test = await cloudStorageAccount.IsBlobInContainerAsync(blobContainerPath, blobContainerName);
+                    Assert.IsTrue(test, "The expected blob name is not here.");
+                }
+                finally
+                {
+                    listener?.Flush();
+                }
+            }
         }
 
         [TestCategory("Integration")]
@@ -90,9 +118,22 @@ namespace Songhay.Cloud.BlobStorage.Tests
         public async Task ShouldListBlobsInContainer()
         {
             var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
-            var container = cloudStorageAccount.GetContainerReference(blobContainerName);
-            var blobs = await container.ListBlobsAsync(useFlatBlobListing: true);
-            blobs.ForEachInEnumerable(i => this.TestContext.WriteLine(i.Uri.OriginalString));
+
+            using (var listener = new TextWriterTraceListener(Console.Out))
+            {
+                try
+                {
+                    traceSource.Listeners.Add(listener);
+
+                    var container = cloudStorageAccount.GetContainerReference(blobContainerName);
+                    var blobs = await container.ListBlobsAsync(useFlatBlobListing: true);
+                    blobs.ForEachInEnumerable(i => this.TestContext.WriteLine(i.Uri.OriginalString));
+                }
+                finally
+                {
+                    listener?.Flush();
+                }
+            }
         }
 
         [TestCategory("Integration")]
@@ -118,12 +159,24 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             #endregion
 
-            await cloudStorageAccount.UploadBlobAsync(localFile, blobContainerName, blobContainerPath);
+            using (var listener = new TextWriterTraceListener(Console.Out))
+            {
+                try
+                {
+                    traceSource.Listeners.Add(listener);
 
-            var fileInfo = new FileInfo(localFile);
-            var test = await cloudStorageAccount.IsBlobInContainerAsync(fileInfo.Name, blobContainerName);
+                    await cloudStorageAccount.UploadBlobAsync(localFile, blobContainerName, blobContainerPath);
 
-            Assert.IsTrue(test, $"The expected Blob, `{fileInfo.Name}`, is not here.");
+                    var fileInfo = new FileInfo(localFile);
+                    var test = await cloudStorageAccount.IsBlobInContainerAsync(fileInfo.Name, blobContainerName);
+
+                    Assert.IsTrue(test, $"The expected Blob, `{fileInfo.Name}`, is not here.");
+                }
+                finally
+                {
+                    listener?.Flush();
+                }
+            }
         }
 
         static CloudStorageAccount cloudStorageAccount;
