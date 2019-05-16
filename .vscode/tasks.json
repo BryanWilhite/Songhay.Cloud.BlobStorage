@@ -16,6 +16,22 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "build [Release]",
+            "command": "dotnet",
+            "isBackground": true,
+            "type": "shell",
+            "args": [
+                "build",
+                "Songhay.Cloud.BlobStorage.sln",
+                "--configuration",
+                "Release"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
             "command": "nuget",
             "label": "NuGet pack",
             "isBackground": false,
@@ -27,7 +43,7 @@
                 "detailed"
             ],
             "options": {
-                "cwd": "${workspaceRoot}"
+                "cwd": "${workspaceRoot}/Songhay.Cloud.BlobStorage"
             },
             "problemMatcher": "$msCompile"
         }
