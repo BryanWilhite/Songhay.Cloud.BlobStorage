@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>TRACE;NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'net462' ">
@@ -49,7 +49,7 @@
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net452' Or '$(TargetFramework)' == 'net462' ">
-    <DefineConstants>NET452;NET462</DefineConstants>
+    <DefineConstants>TRACE;NET452;NET462</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

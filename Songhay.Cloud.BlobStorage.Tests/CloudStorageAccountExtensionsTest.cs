@@ -22,7 +22,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
             TraceSources.ConfiguredTraceSourceName = $"trace-{nameof(CloudStorageAccountExtensionsTest)}";
             traceSource = TraceSources
                 .Instance
-                .GetTraceSourceFromConfiguredName()
+                .GetConfiguredTraceSource()
                 .WithSourceLevels()
                 .EnsureTraceSource();
         }
