@@ -42,15 +42,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
             var meta = new ProgramMetadata();
             builder.Build().Bind(nameof(ProgramMetadata), meta);
-
-            Assert.NotNull(meta.CloudStorageSet);
-            var key = "SonghayCloudStorage";
-            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
-            Assert.True(test, $"The expected cloud storage set, {key}, is not here.");
-            Assert.True(set.Any(), $"The expected cloud storage set items for {key} are not here.");
-
-            var connectionString = set.First().Value;
-            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
+            cloudStorageAccount = meta.GetCloudStorageAccount("SonghayCloudStorage", "classic");
         }
 
         [Trait("Category", "Integration")]
