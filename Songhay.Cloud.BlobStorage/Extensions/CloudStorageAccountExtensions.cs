@@ -103,7 +103,7 @@ namespace Songhay.Cloud.BlobStorage.Extensions
             if (container == null) return;
 
             traceSource?.TraceVerbose($"Uploading {localFile} to {blobContainerPath}…");
-            await container.UploadBlob(localFile, blobContainerPath);
+            await container.UploadBlobAsync(localFile, blobContainerPath);
         }
     }
 }
