@@ -1,116 +1,137 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
+using Songhay.Cloud.BlobStorage.Extensions;
 using Songhay.Cloud.BlobStorage.Models;
 using Songhay.Cloud.BlobStorage.Repositories;
-using Songhay.Cloud.BlobStorage.Tests.Extensions;
+using Songhay.Diagnostics;
 using Songhay.Extensions;
-using System.IO;
-using System.Threading.Tasks;
+using Songhay.Models;
+using Songhay.Tests.Orderers;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Songhay.Cloud.BlobStorage.Tests
 {
-    [TestClass]
     public class TaggedJObjectTest
     {
-        /// <summary>
-        /// Initializes the test.
-        /// </summary>
-        [TestInitialize]
-        public void InitializeTest()
+        static TaggedJObjectTest()
         {
-            var basePath = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
-            cloudStorageAccount = this.TestContext.ShouldGetCloudStorageAccount(basePath);
+            TraceSources.ConfiguredTraceSourceName = $"trace-{nameof(TaggedJObjectTest)}";
+            traceSource = TraceSources
+                .Instance
+                .GetConfiguredTraceSource()
+                .WithSourceLevels()
+                .EnsureTraceSource();
         }
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
+        static readonly TraceSource traceSource;
 
-        [TestCategory("Integration")]
-        [TestMethod]
-        [TestProperty("blobContainerName", "integration-test-container")]
-        [TestProperty("json", @"{""id"":""ShouldSaveTaggedJObjectToRepo"", ""content"": ""Hello world!""}")]
-        public async Task ShouldDeleteTaggedJObjectInRepo()
+        public TaggedJObjectTest(ITestOutputHelper helper)
         {
-            #region test properties:
+            this._testOutputHelper = helper;
 
-            var json = this.TestContext.Properties["json"].ToString();
-            var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
+            var basePath = FrameworkAssemblyUtility.GetPathFromAssembly(this.GetType().Assembly, "../../../");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("app-settings.songhay-system.json", optional : false, reloadOnChange : true);
 
-            #endregion
+            var meta = new ProgramMetadata();
+            builder.Build().Bind(nameof(ProgramMetadata), meta);
 
-            var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
+            Assert.NotNull(meta.CloudStorageSet);
+            var key = "SonghayCloudStorage";
+            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
+            Assert.True(test, $"The expected cloud storage set, {key}, is not here.");
+            Assert.True(set.Any(), $"The expected cloud storage set items for {key} are not here.");
 
-            var repo = new TaggedJObjectRepository(container, "id");
+            var connectionString = set.First().Value;
+            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
+        }
+
+        [Trait("Category", "Integration")]
+        [Theory, TestOrder(ordinal: 3), InlineData("integration-test-container", @"{""id"":""ShouldSaveTaggedJObjectToRepo"", ""content"": ""Hello world!""}")]
+        public async Task ShouldDeleteTaggedJObjectInRepo(string blobContainerName, string json)
+        {
+            using (var writer = new StringWriter())
+            using (var listener = new TextWriterTraceListener(writer))
+            {
+                traceSource.Listeners.Add(listener);
+
+                var container = cloudStorageAccount.GetContainerReference(blobContainerName);
+
+                var repo = new TaggedJObjectRepository(container, "id");
+                var data = new TaggedJObject(json, "id");
+
+                var test = await repo.HasBlobAsync(data.Tag);
+                Assert.True(test, "The expected blob is not here.");
+
+                await repo.DeleteAsync(data.Tag);
+                test = await repo.HasBlobAsync(data.Tag);
+                Assert.False(test, "The blob is not expected.");
+
+                listener.Flush();
+                this._testOutputHelper.WriteLine(writer.ToString());
+            }
+        }
+
+        [Theory, InlineData(@"{""id"":""1234"", ""content"": ""Hello world!""}")]
+        public void ShouldInstanceTaggedJObject(string json)
+        {
             var data = new TaggedJObject(json, "id");
-
-            var test = await repo.HasBlobAsync(data.Tag);
-            Assert.IsTrue(test, "The expected blob is not here.");
-
-            await repo.DeleteAsync(data.Tag);
-            test = await repo.HasBlobAsync(data.Tag);
-            Assert.IsFalse(test, "The blob is not expected.");
+            this._testOutputHelper.WriteLine($"tag: {data.Tag}");
+            this._testOutputHelper.WriteLine(data.ToString().EscapeInterpolation());
+            Assert.NotNull(data.Tag);
         }
 
-        [TestCategory("Integration")]
-        [TestMethod]
-        [TestProperty("json", @"{""id"":""1234"", ""content"": ""Hello world!""}")]
-        public void ShouldGetTaggedJObject()
+        [Trait("Category", "Integration")]
+        [Theory, TestOrder(ordinal: 2), InlineData("integration-test-container", "ShouldSaveTaggedJObjectToRepo")]
+        public async Task ShouldLoadTaggedJObjectFromRepo(string blobContainerName, string respositoryKey)
         {
-            var json = this.TestContext.Properties["json"].ToString();
+            using (var writer = new StringWriter())
+            using (var listener = new TextWriterTraceListener(writer))
+            {
+                traceSource.Listeners.Add(listener);
 
-            var data = new TaggedJObject(json, "id");
-            this.TestContext.WriteLine($"tag: {data.Tag}");
-            this.TestContext.WriteLine(data.ToString().EscapeInterpolation());
-            Assert.IsNotNull(data.Tag, "The expected tag is not here.");
+                var container = cloudStorageAccount.GetContainerReference(blobContainerName);
+
+                var repo = new TaggedJObjectRepository(container, "id");
+                var data = await repo.LoadSingleAsync(respositoryKey);
+                this._testOutputHelper.WriteLine(data.ToString().EscapeInterpolation());
+
+                listener.Flush();
+                this._testOutputHelper.WriteLine(writer.ToString());
+            }
         }
 
-        [TestCategory("Integration")]
-        [TestMethod]
-        [TestProperty("blobContainerName", "integration-test-container")]
-        [TestProperty("respositoryKey", "ShouldSaveTaggedJObjectToRepo")]
-        public async Task ShouldLoadTaggedJObjectFromRepo()
+        [Trait("Category", "Integration")]
+        [Theory, TestOrder(ordinal: 1), InlineData("integration-test-container", @"{""id"":""ShouldSaveTaggedJObjectToRepo"", ""content"": ""Hello world!""}")]
+        public async Task ShouldSaveTaggedJObjectToRepo(string blobContainerName, string json)
         {
-            #region test properties:
+            using (var writer = new StringWriter())
+            using (var listener = new TextWriterTraceListener(writer))
+            {
+                traceSource.Listeners.Add(listener);
 
-            var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
-            var respositoryKey = this.TestContext.Properties["respositoryKey"].ToString();
+                var container = cloudStorageAccount.GetContainerReference(blobContainerName);
 
-            #endregion
+                var repo = new TaggedJObjectRepository(container, "id");
+                var data = new TaggedJObject(json, "id");
 
-            var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
+                await repo.SaveAsync(data);
+                var test = await repo.HasBlobAsync(data.Tag);
+                Assert.True(test, "The expected blob is not here.");
 
-            var repo = new TaggedJObjectRepository(container, "id");
-            var data = await repo.LoadSingleAsync(respositoryKey);
-            this.TestContext.WriteLine(data.ToString().EscapeInterpolation());
+                listener.Flush();
+                this._testOutputHelper.WriteLine(writer.ToString());
+            }
         }
 
-        [TestCategory("Integration")]
-        [TestMethod]
-        [TestProperty("blobContainerName", "integration-test-container")]
-        [TestProperty("json", @"{""id"":""ShouldSaveTaggedJObjectToRepo"", ""content"": ""Hello world!""}")]
-        public async Task ShouldSaveTaggedJObjectToRepo()
-        {
-            #region test properties:
-
-            var json = this.TestContext.Properties["json"].ToString();
-            var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
-
-            #endregion
-
-            var container = cloudStorageAccount.CreateCloudBlobClient().GetContainerReference(blobContainerName);
-
-            var repo = new TaggedJObjectRepository(container, "id");
-            var data = new TaggedJObject(json, "id");
-
-            await repo.SaveAsync(data);
-            var test = await repo.HasBlobAsync(data.Tag);
-            Assert.IsTrue(test, "The expected blob is not here.");
-        }
-
-        static CloudStorageAccount cloudStorageAccount;
+        readonly ITestOutputHelper _testOutputHelper;
+        readonly CloudStorageAccount cloudStorageAccount;
     }
 }

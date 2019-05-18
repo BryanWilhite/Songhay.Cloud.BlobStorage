@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2006
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Songhay.Cloud.BlobStorage", "Songhay.Cloud.BlobStorage\Songhay.Cloud.BlobStorage.csproj", "{0137B326-EF91-4738-A257-684C7AADED62}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Songhay.Cloud.BlobStorage.Tests", "Songhay.Cloud.BlobStorage.Tests\Songhay.Cloud.BlobStorage.Tests.csproj", "{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE47F68E-5260-4B99-A118-B50A0F87BA5F}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		Songhay.Cloud.BlobStorage.nuspec = Songhay.Cloud.BlobStorage.nuspec
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Songhay.Cloud.BlobStorage.Tests", "Songhay.Cloud.BlobStorage.Tests\Songhay.Cloud.BlobStorage.Tests.csproj", "{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,30 +35,18 @@ Global
 		{0137B326-EF91-4738-A257-684C7AADED62}.Release|x64.Build.0 = Release|Any CPU
 		{0137B326-EF91-4738-A257-684C7AADED62}.Release|x86.ActiveCfg = Release|Any CPU
 		{0137B326-EF91-4738-A257-684C7AADED62}.Release|x86.Build.0 = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|x64.Build.0 = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Debug|x86.Build.0 = Debug|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|x64.ActiveCfg = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|x64.Build.0 = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|x86.ActiveCfg = Release|Any CPU
-		{A102F889-9B10-4ADD-AC9E-F75BB3BC2692}.Release|x86.Build.0 = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|x64.Build.0 = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Debug|x86.Build.0 = Debug|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|x64.ActiveCfg = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|x64.Build.0 = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|x86.ActiveCfg = Release|Any CPU
-		{E8CF83AB-390E-4D76-BB43-77FA3F9A8556}.Release|x86.Build.0 = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|x64.Build.0 = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Debug|x86.Build.0 = Debug|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|x64.ActiveCfg = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|x64.Build.0 = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|x86.ActiveCfg = Release|Any CPU
+		{BDADC971-4844-414E-BFD0-B0E6ABB19CF9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

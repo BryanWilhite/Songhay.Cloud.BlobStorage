@@ -1,21 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Songhay.Cloud.BlobStorage.Extensions;
 using Songhay.Cloud.BlobStorage.Models;
-using Songhay.Cloud.BlobStorage.Tests.Extensions;
 using Songhay.Cloud.BlobStorage.Tests.Models;
 using Songhay.Cloud.BlobStorage.Tests.Repositories;
 using Songhay.Diagnostics;
 using Songhay.Extensions;
+using Songhay.Models;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Songhay.Cloud.BlobStorage.Tests
 {
-    [TestClass]
     public class CloudBlobContainerExtensionsTest
     {
         static CloudBlobContainerExtensionsTest()
@@ -30,51 +31,53 @@ namespace Songhay.Cloud.BlobStorage.Tests
 
         static readonly TraceSource traceSource;
 
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext { get; set; }
-
-        /// <summary>
-        /// Initializes the test.
-        /// </summary>
-        [TestInitialize]
-        public void InitializeTest()
+        public CloudBlobContainerExtensionsTest(ITestOutputHelper helper)
         {
-            var basePath = FrameworkFileUtility.FindParentDirectory(Directory.GetCurrentDirectory(), this.GetType().Namespace, 5);
-            cloudStorageAccount = this.TestContext.ShouldGetCloudStorageAccount(basePath);
+            this._testOutputHelper = helper;
+
+            var basePath = FrameworkAssemblyUtility.GetPathFromAssembly(this.GetType().Assembly, "../../../");
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(basePath)
+                .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
+
+            var meta = new ProgramMetadata();
+            builder.Build().Bind(nameof(ProgramMetadata), meta);
+
+            Assert.NotNull(meta.CloudStorageSet);
+            var key = "SonghayCloudStorage";
+            var test = meta.CloudStorageSet.TryGetValue(key, out var set);
+            Assert.True(test, $"The expected cloud storage set, {key}, is not here.");
+            Assert.True(set.Any(), $"The expected cloud storage set items for {key} are not here.");
+
+            var connectionString = set.First().Value;
+            cloudStorageAccount = CloudStorageAccount.Parse(connectionString);
         }
 
-        [TestMethod]
-        [TestProperty("blobContainerName", "songhayblog-azurewebsites-net")]
-        public async Task ShouldListBlobsAsync()
+        [Trait("Category", "Integration")]
+        [Theory, InlineData("songhayblog-azurewebsites-net")]
+        public async Task ShouldListBlobsAsync(string blobContainerName)
         {
-            using (var listener = new TextWriterTraceListener(Console.Out))
+            using(var writer = new StringWriter())
+            using (var listener = new TextWriterTraceListener(writer))
             {
-                try
-                {
-                    traceSource.Listeners.Add(listener);
+                traceSource.Listeners.Add(listener);
 
-                    var blobContainerName = this.TestContext.Properties["blobContainerName"].ToString();
+                var container = cloudStorageAccount.GetContainerReference(blobContainerName);
+                var keys = new AzureBlobKeys();
+                keys.Add<BlogEntry>(i => i.Slug);
 
-                    var container = cloudStorageAccount.GetContainerReference(blobContainerName);
-                    var keys = new AzureBlobKeys();
-                    keys.Add<BlogEntry>(i => i.Slug);
+                var repository = new BlogRepository(keys, container);
+                Assert.NotNull(repository);
 
-                    var repository = new BlogRepository(keys, container);
-                    Assert.IsNotNull(repository, "The expected repository is not here.");
+                var entries = await repository.LoadAllAsync<BlogEntry>();
+                Assert.True(entries.Any(), "The expected Blog entries are not here.");
 
-                    var entries = await repository.LoadAllAsync<BlogEntry>();
-                    Assert.IsTrue(entries.Any(), "The expected Blog entries are not here.");
-                }
-                finally
-                {
-                    listener?.Flush();
-                }
+                listener.Flush();
+                this._testOutputHelper.WriteLine(writer.ToString());
             }
         }
 
-        static CloudStorageAccount cloudStorageAccount;
+        readonly ITestOutputHelper _testOutputHelper;
+        readonly CloudStorageAccount cloudStorageAccount;
     }
 }

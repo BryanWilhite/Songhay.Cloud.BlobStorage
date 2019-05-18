@@ -1,31 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-	<Authors>Bryan D. Wilhite</Authors>
-    <Company>Songhay System</Company>
-    <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
-    <Copyright>(c) 2017 Bryan D. Wilhite</Copyright>
-    <RepositoryUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</RepositoryUrl>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.TraceSource" Version="2.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
-    <PackageReference Include="SonghayCore.MSTest" Version="3.0.0" />
+    <PackageReference Include="SonghayCore.xUnit" Version="3.0.2" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Songhay.Cloud.BlobStorage\Songhay.Cloud.BlobStorage.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="local-storage\player-audio\hiphoppoetryjam\png\" />
   </ItemGroup>
 
 </Project>
