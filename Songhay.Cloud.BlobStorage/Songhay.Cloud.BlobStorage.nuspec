@@ -7,7 +7,7 @@
     <authors>bryan.wilhite@gmail.com</authors>
     <owners>rasx@songhaysystem.com</owners>
     <projectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</projectUrl>
-    <iconUrl>http://songhaysystem.com/Content/images/songhay_icon.png</iconUrl>
+    <iconUrl>https://songhaystorage.blob.core.windows.net/studio-public/songhay_icon.png</iconUrl>
     <license type="file">LICENSE.md</license>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
@@ -20,15 +20,15 @@
     </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
-        <dependency id="SonghayCore" version="3.1.2" />
+        <dependency id="SonghayCore" version="3.2.0" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETFramework4.6.2">
-        <dependency id="SonghayCore" version="3.1.2" />
+        <dependency id="SonghayCore" version="3.2.0" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="SonghayCore" version="3.1.2" />
+        <dependency id="SonghayCore" version="3.2.0" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
     </dependencies>
