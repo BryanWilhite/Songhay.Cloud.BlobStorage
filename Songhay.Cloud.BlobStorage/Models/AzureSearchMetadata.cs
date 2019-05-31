@@ -1,10 +1,12 @@
 ﻿using Songhay.Models;
+using System;
 
 namespace Songhay.Cloud.BlobStorage.Models
 {
     /// <summary>
     /// Defines metadata needed for Azure Search.
     /// </summary>
+    [Obsolete("RestApiMetadata type can replace this model.")]
     public class AzureSearchMetadata : RestApiMetadata
     {
         /// <summary>

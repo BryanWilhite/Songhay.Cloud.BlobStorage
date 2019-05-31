@@ -1,20 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyVersion>3.0.1</AssemblyVersion>
+
+    <Title>Songhay Cloud BLOB Storage</Title>
+    <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
+    <Authors>Bryan D. Wilhite @BryanWilhite</Authors>
+    <Copyright>(c) 2019 Bryan D. Wilhite</Copyright>
+    <Company>Songhay System</Company>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</RepositoryUrl>
+
+    <IncludeSource>false</IncludeSource>
+    <IncludeSymbols>false</IncludeSymbols>
+    <IsPackable>true</IsPackable>
+    <PackageIconUrl>https://songhaystorage.blob.core.windows.net/studio-public/songhay_icon.png</PackageIconUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage/projects</PackageProjectUrl>
+    <PackageReleaseNotes>update of dependencies</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageTags>Songhay;Azure;BLOB;storage;JSON;repository</PackageTags>
+    <PackageVersion>$(AssemblyVersion)</PackageVersion>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Version>$(AssemblyVersion)</Version>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' "> 
     <TargetFrameworks>netstandard2.0;net462;net452</TargetFrameworks>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Authors>Bryan D. Wilhite</Authors>
-    <Company>Songhay System</Company>
-    <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
-    <Copyright>(c) 2019 Bryan D. Wilhite</Copyright>
-    <RepositoryUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</RepositoryUrl>
-    <AssemblyVersion>3.0.0</AssemblyVersion>
-    <Deterministic>False</Deterministic>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -53,8 +69,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\LICENSE.md" Link="LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="SonghayCore" Version="3.2.0" />
+    <PackageReference Include="SonghayCore" Version="3.2.1" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 
