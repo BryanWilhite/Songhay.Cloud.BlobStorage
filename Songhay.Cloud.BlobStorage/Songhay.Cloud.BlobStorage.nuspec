@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
     <authors>Bryan D. Wilhite @BryanWilhite</authors>
     <title>Songhay Cloud BLOB Storage</title>
@@ -12,7 +12,7 @@
     <iconUrl>https://songhaystorage.blob.core.windows.net/studio-public/songhay_icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Extensions and Orderers for Songhay xUnit projects</summary>
-    <releaseNotes>added multitargeting support</releaseNotes>
+    <releaseNotes>update of Core dependencies</releaseNotes>
     <copyright>(c) 2019 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB storage JSON repository</tags>
     <repository type="git" url="https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage"></repository>
@@ -36,8 +36,12 @@
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="2.2.4" />
+        <dependency id="Microsoft.Extensions.Configuration.EnvironmentVariables" version="2.2.4" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
-        <dependency id="SonghayCore" version="3.2.1" />
+        <dependency id="SonghayCore" version="3.2.2" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
     </dependencies>
