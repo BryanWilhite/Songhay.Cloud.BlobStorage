@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
     <authors>Bryan D. Wilhite @BryanWilhite</authors>
     <title>Songhay Cloud BLOB Storage</title>
@@ -22,14 +22,14 @@
     </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NETFramework4.5.2">
-        <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.3" />
+        <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
         <dependency id="SonghayCore" version="3.2.5" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETFramework4.6.2">
-        <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.3" />
+        <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
         <dependency id="SonghayCore" version="3.2.5" />
@@ -43,6 +43,7 @@
         <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
         <dependency id="Newtonsoft.Json" version="12.0.2" />
         <dependency id="SonghayCore" version="3.2.5" />
+        <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
     </dependencies>
