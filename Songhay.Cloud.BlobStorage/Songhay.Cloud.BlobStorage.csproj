@@ -14,7 +14,7 @@
     <IncludeSource>false</IncludeSource>
     <IncludeSymbols>false</IncludeSymbols>
     <IsPackable>true</IsPackable>
-    <PackageIconUrl>https://songhaystorage.blob.core.windows.net/studio-public/songhay_icon.png</PackageIconUrl>
+    <PackageIcon>..\songhay_icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage/projects</PackageProjectUrl>
     <PackageReleaseNotes>update of Core dependencies</PackageReleaseNotes>

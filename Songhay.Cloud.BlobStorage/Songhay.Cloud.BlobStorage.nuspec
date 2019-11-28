@@ -9,7 +9,7 @@
     <owners>Bryan D. Wilhite @BryanWilhite</owners>
     <projectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage</projectUrl>
     <license type="file">LICENSE.md</license>
-    <iconUrl>https://songhaystorage.blob.core.windows.net/studio-public/songhay_icon.png</iconUrl>
+    <icon>images\songhay_icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Extensions and Orderers for Songhay xUnit projects</summary>
     <releaseNotes>update of Core dependencies</releaseNotes>
@@ -63,5 +63,6 @@
     <file src="**\*.cs" exclude="**\obj\**" target="src" />
 
     <file src="..\LICENSE.md" target="" />
+    <file src="..\songhay_icon.png" target="images\" />
   </files>
 </package>
