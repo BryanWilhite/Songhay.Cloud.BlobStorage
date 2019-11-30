@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyVersion>3.0.7</AssemblyVersion>
+    <AssemblyVersion>3.0.8</AssemblyVersion>
 
     <Title>Songhay Cloud BLOB Storage</Title>
     <Description>Azure BLOB Storage Repositories for JSON files in the Cloud</Description>
@@ -17,7 +17,7 @@
     <PackageIcon>..\songhay_icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage/projects</PackageProjectUrl>
-    <PackageReleaseNotes>update of Core dependencies</PackageReleaseNotes>
+    <PackageReleaseNotes>📦🔼 update of Core dependencies</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageTags>Songhay;Azure;BLOB;storage;JSON;repository</PackageTags>
     <PackageVersion>$(AssemblyVersion)</PackageVersion>
@@ -74,7 +74,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.KeyVault.Core" Version="3.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="SonghayCore" Version="3.2.10" />
+    <PackageReference Include="SonghayCore" Version="3.2.12" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 

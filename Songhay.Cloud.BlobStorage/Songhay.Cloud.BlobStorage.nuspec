@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>3.0.7</version>
+    <version>3.0.8</version>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
     <authors>Bryan D. Wilhite @BryanWilhite</authors>
     <title>Songhay Cloud BLOB Storage</title>
@@ -12,7 +12,7 @@
     <icon>images\songhay_icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <summary>Extensions and Orderers for Songhay xUnit projects</summary>
-    <releaseNotes>update of Core dependencies</releaseNotes>
+    <releaseNotes>📦🔼 update of Core dependencies</releaseNotes>
     <copyright>(c) 2019 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB storage JSON repository</tags>
     <repository type="git" url="https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage"></repository>
@@ -25,14 +25,14 @@
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.10" />
+        <dependency id="SonghayCore" version="3.2.12" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETFramework4.6.2">
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.10" />
+        <dependency id="SonghayCore" version="3.2.12" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETStandard2.0">
@@ -42,7 +42,7 @@
         <dependency id="Microsoft.Extensions.Configuration.FileExtensions" version="2.2.0" />
         <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.10" />
+        <dependency id="SonghayCore" version="3.2.12" />
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.4" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
