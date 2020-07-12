@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Songhay.Cloud.BlobStorage</id>
-    <version>3.0.13</version>
+    <version>3.0.14</version>
     <description>Azure BLOB Storage Repositories for JSON files in the Cloud</description>
     <authors>Bryan D. Wilhite @BryanWilhite</authors>
     <title>Songhay Cloud BLOB Storage</title>
@@ -25,14 +25,14 @@
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.5" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.19" />
+        <dependency id="SonghayCore" version="3.2.20" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETFramework4.6.2">
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.5" />
         <dependency id="Microsoft.Data.OData" version="5.8.4" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.19" />
+        <dependency id="SonghayCore" version="3.2.20" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
       <group targetFramework=".NETStandard2.0">
@@ -42,20 +42,20 @@
         <dependency id="Microsoft.Extensions.Configuration.FileExtensions" version="2.2.0" />
         <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" />
         <dependency id="Newtonsoft.Json" version="12.0.3" />
-        <dependency id="SonghayCore" version="3.2.19" />
+        <dependency id="SonghayCore" version="3.2.20" />
         <dependency id="Microsoft.Azure.KeyVault.Core" version="3.0.5" />
         <dependency id="WindowsAzure.Storage" version="9.3.3" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.dll" target="lib\net452" />
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.config" target="lib\net452" />
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.xml" target="lib\net452" />
+    <file src="bin\Release\net452\Songhay.Cloud.BlobStorage*.dll" target="lib\net452" />
+    <file src="bin\Release\net452\Songhay.Cloud.BlobStorage*.config" target="lib\net452" />
+    <file src="bin\Release\net452\Songhay.Cloud.BlobStorage*.xml" target="lib\net452" />
 
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.dll" target="lib\net462" />
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.config" target="lib\net462" />
-    <file src="bin\Release\Songhay.Cloud.BlobStorage*.xml" target="lib\net462" />
+    <file src="bin\Release\net462\Songhay.Cloud.BlobStorage*.dll" target="lib\net462" />
+    <file src="bin\Release\net462\Songhay.Cloud.BlobStorage*.config" target="lib\net462" />
+    <file src="bin\Release\net462\Songhay.Cloud.BlobStorage*.xml" target="lib\net462" />
 
     <file src="bin\Release\netstandard2.0\Songhay.Cloud.BlobStorage*.dll" target="lib\netstandard2.0" />
     <file src="bin\Release\netstandard2.0\Songhay.Cloud.BlobStorage*.json" target="lib\netstandard2.0" />
