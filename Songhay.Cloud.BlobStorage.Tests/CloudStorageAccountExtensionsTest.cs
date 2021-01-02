@@ -34,7 +34,7 @@ namespace Songhay.Cloud.BlobStorage.Tests
         {
             this._testOutputHelper = helper;
 
-            this._basePath = FrameworkAssemblyUtility.GetPathFromAssembly(this.GetType().Assembly, "../../../");
+            this._basePath = ProgramAssemblyUtility.GetPathFromAssembly(this.GetType().Assembly, "../../../");
             var builder = new ConfigurationBuilder()
                 .SetBasePath(this._basePath)
                 .AddJsonFile("app-settings.songhay-system.json", optional: false, reloadOnChange: true);
