@@ -16,10 +16,6 @@
     <copyright>(c) 2021 Bryan D. Wilhite</copyright>
     <tags>Songhay Azure BLOB storage JSON repository</tags>
     <repository type="git" url="https://github.com/BryanWilhite/Songhay.Cloud.BlobStorage"></repository>
-    <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System.Configuration" />
-      <frameworkAssembly assemblyName="System.Web" />
-    </frameworkAssemblies>
     <dependencies>
       <group targetFramework=".NET5.0">
         <dependency id="Microsoft.Extensions.Configuration" version="5.0.0" />
